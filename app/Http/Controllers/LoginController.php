@@ -25,7 +25,7 @@ class LoginController extends Controller
     	];
     	
     	if (Auth::attempt($login)){
-    		return redirect()->route('home');
+    		return redirect()->route('dashboard');
     	}
     	return redirect()->route('login')->with(['error'=>'Email atau password yang dimasukan salah']);
 	}
@@ -33,5 +33,12 @@ class LoginController extends Controller
         Auth::logout();
         Session::flush();
         return redirect('/');
+    }
+    public function cekRole(){
+        if (Auth::user()->role==User::USER_ROLE_ADMIN){
+            return redirect()->route('admin.dashboard.index');
+        } else{
+            return redirect()->route('home');
+        }
     }
 }

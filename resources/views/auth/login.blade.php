@@ -14,7 +14,17 @@
                         @if (session('error'))
                         <div class="alert alert-danger">{{session('error')}}</div>
                         @endif
+                            @if(session('success'))
+                            <div class="alert alert-success">
+                                    {!! session('success') !!}
+                                </div>
+                            @endif
 
+                            @if(session('fail'))
+                                <div class="alert alert-danger">
+                                    {!! session('fail') !!}
+                                </div>
+                            @endif
                         <div class="form-group row">
                             <label for="username" class="col-md-4 col-form-label text-md-right">Username/Email</label>
 
