@@ -19,8 +19,9 @@
   <link rel="stylesheet" href="{{ asset('adminlte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
   <!-- Daterange picker -->
   <link rel="stylesheet" href="{{ asset('adminlte/plugins/daterangepicker/daterangepicker.css')}}">
- 
+ <link href="{{ asset('css/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
   <!-- Google Font: Source Sans Pro -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -85,7 +86,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="#" class="nav-link active">
+            <a href="{{route('admin.dashboard.index')}}" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
@@ -94,14 +95,23 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
+            <a href="{{route('admin.mahasiswa.index')}}" class="nav-link">
+              <i class="nav-icon fas fa-user"></i>
               <p>
-                Widgets
-                <span class="right badge badge-danger">New</span>
+                Data Mahasiswa
+               
               </p>
             </a>
-          </li>      
+          </li>
+          <li class="nav-item">
+            <a href="{{route('admin.dosen.index')}}" class="nav-link">
+              <i class="nav-icon fas fa-user"></i>
+              <p>
+                Data Dosen
+               
+              </p>
+            </a>
+          </li>       
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -155,5 +165,10 @@
 <script src="{{ asset('adminlte/dist/js/pages/dashboard.js')}}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('adminlte/dist/js/demo.js')}}"></script>
+<script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('js/dataTables.bootstrap4.min.js') }}"></script>
+
 </body>
 </html>
+@stack('scripts')
+@stack('scripts2')

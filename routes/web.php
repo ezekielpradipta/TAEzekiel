@@ -16,28 +16,39 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
+Route::get('/tes', function () {
+    return view('test');
+});
+	Route::post('register/cekemail', 'RegisterController@cekEmail')->name('register.cekEmail');
+	Route::post('register/cekname', 'RegisterController@cekNama')->name('register.cekNama');
+	Route::post('register/cekuname', 'RegisterController@cekUsername')->name('register.cekUsername');
+	
 Route::group(['middleware' => ['guest']], function () {    
 	Route::get('login', 'LoginController@login')->name('login');
 	Route::post('login', 'LoginController@ceklogin')->name('login');
 	Route::get('register', 'RegisterController@register')->name('register');
 	Route::post('register', 'RegisterController@daftar')->name('register');
-	Route::post('register/cekemail', 'RegisterController@cekEmail')->name('register.cekEmail');
-	Route::post('register/cekname', 'RegisterController@cekNama')->name('register.cekNama');
-	Route::post('register/cekuname', 'RegisterController@cekUsername')->name('register.cekUsername');
+
 });
 Route::group(['middleware'=>['auth']],function(){
 	Route::get('logout', 'LoginController@logout')->name('logout');
 	Route::get('dashboard','LoginController@cekRole')->name('dashboard');
 
-		Route::prefix('admin')->group(function(){
-			Route::namespace('Admin')->group(function(){
-			Route::group(['middleware'=>['admin']],function(){
-                Route::get('/', 'AdminController@index')->name('admin.dashboard.index');
-			});
-		  });
+	Route::group(['middleware'=>['admin']],function(){
+		Route::namespace('Admin')->group(function(){
+			Route::prefix('admin')->group(function(){
+				Route::get('/', 'AdminController@index')->name('admin.dashboard.index');
 
+				Route::prefix('mahasiswa')->group(function(){
+					Route::get('/','MahasiswaController@index')->name('admin.mahasiswa.index');
+					Route::get('/data','MahasiswaController@data')->name('admin.mahasiswa.data');	
+				});
+				Route::resource('dosen','DosenController',['as'=>'admin'])->except('show');
+				Route::get('dosen/data','DosenController@data')->name('admin.dosen.data');
+
+			});
 		});
+	});
 });
 
 Route::get('/home', 'HomeController@index')->name('home');

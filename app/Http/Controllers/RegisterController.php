@@ -13,7 +13,7 @@ class RegisterController extends Controller
     }
     public function daftar(Request $request){
     	$this->validate($request,[
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255','unique:users'],
        		'username' => ['required', 'string', 'max:255', 'unique:users'],
             'email' => ['required', 'string', 'regex:/st3telkom\.ac\.id|ittelkom-pwt\.ac\.id]/', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],

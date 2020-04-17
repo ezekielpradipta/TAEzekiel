@@ -13,7 +13,7 @@
                             <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4">Daftar Akun</h1>
                             </div>
-                        <form method="post" action="{{ route('register') }}">
+                        <form method="post" action="{{ route('register') }}" enctype="multipart/form-data">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <div class="input-group col-lg-12 mb-4">
                                 <div class="input-group-prepend">
@@ -86,7 +86,7 @@
                             
                        
                         <div class="form-group col-lg-12  mb-0">
-                            <button type="submits" class="btn btn-primary btn-block py-2" id="register" name="register"><span class="font-weight-bold">Buat Akun Sekarang</span></button>   
+                            <button type="submit" class="btn btn-primary btn-block py-2" id="register" name="register"><span class="font-weight-bold">Buat Akun Sekarang</span></button>   
                         </div>
                         </form>
                     </div>
@@ -113,7 +113,8 @@
             $("#msg2").html('<label class ="fa fa-check" style="color: green;"></label>');
         } else {
             $("#msg").html('<label class="fa fa-remove" style="color: red;"></label>');  
-            $("#msg2").html('<label class="fa fa-remove" style="color: red;"></label>');   
+            $("#msg2").html('<label class="fa fa-remove" style="color: red;"></label>');
+            $('#register').attr('disabled', 'disabled');   
         }
     }
 </script>

@@ -21,7 +21,7 @@ class IniAdmin
             Auth::logout();
             return redirect()->route('login')->with('fail','Akun anda belum diaktifkan');
         }
-        if(Gate::allows('is_admin')){
+        if(Gate::allows('roleAdmin')){
             return $next($request);
         } else{
             abort(403,'Anda tidak memiliki Akses untuk halaman ini');
