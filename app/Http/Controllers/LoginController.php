@@ -37,7 +37,10 @@ class LoginController extends Controller
     public function cekRole(){
         if (Auth::user()->role==User::USER_ROLE_ADMIN){
             return redirect()->route('admin.dashboard.index');
-        } else{
+        } else if (Auth::user()->role==User::USER_ROLE_MHS) {
+            return redirect()->route('isiDataMahasiswa');
+        }
+        else{
             return redirect()->route('home');
         }
     }

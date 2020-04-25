@@ -49,6 +49,13 @@ Route::group(['middleware'=>['auth']],function(){
 			});
 		});
 	});
+
+	Route::group(['middleware'=>['mahasiswa']],function(){
+		Route::namespace('Mahasiswa')->group(function(){
+			Route::get('/form','TestController@index')->name('isiDataMahasiswa');
+			Route::post('/form/konfirm','TestController@confirm')->name('konfirmformmahasiswa');
+		});
+	});
 });
 
 Route::get('/home', 'HomeController@index')->name('home');

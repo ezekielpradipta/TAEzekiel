@@ -19,6 +19,7 @@
 						<th>No.</th>
 						<th>Nama</th>
 						<th>Email</th>
+						<th>NIDN</th>
 						<th>Aksi</th>
 					</thead>
 				</table>
@@ -35,8 +36,9 @@
                 ajax: '{{ route('admin.dosen.data') }}',
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex' },
-                    { data: 'name',  name: 'name' },
-                    { data: 'email', name: 'email' },
+                    { data: 'user.name',  name: 'user.name' },
+                    { data: 'user.email', name: 'user.email' },
+                    { data: 'nidn', name: 'nidn' },
                     { data: 'action', name: 'action', orderable: false, searchable: false},
                    ]
             });

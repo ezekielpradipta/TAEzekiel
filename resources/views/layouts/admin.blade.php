@@ -167,7 +167,7 @@
 <script src="{{ asset('adminlte/dist/js/demo.js')}}"></script>
 <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('js/dataTables.bootstrap4.min.js') }}"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
 </body>
 </html>
 @stack('scripts')

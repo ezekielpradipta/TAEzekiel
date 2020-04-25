@@ -1,8 +1,10 @@
-					<div class="form-group">
+					
+          <div class="form-group">
 						<div class="col-sm-6">
 						<label for="inputEmail">Email</label>
-							<input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="Email.." value="{{ old('email', $update ? $dosen->email:'') }}"> 
+							<input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="Email.." value="{{ old('email', $update ? $dosen->user->email:'') }}"> 
 						</div>
+            @if($update)<span>Lewati jika tidak ingin mengganti email</span> @endif
 						@error('email')
                         	<span role="alert">
                                 <strong>{{ $message }}</strong>
@@ -12,10 +14,16 @@
                         <span id="error_email" class="error_email"></span>
                           
 					</div>
+          <div class="form-group">
+            <div class="col-sm-6">
+              <label for="inputNIDN">NIDN</label>
+              <input type="text" name="nidn" id="nidn" class="form-control @error('nidn') is-invalid @enderror" placeholder="NIDN.." value="{{ old('nidn', $update ? $dosen->nidn:'') }}">
+            </div>
+          </div>
 					<div class="form-group">
 						<div class="col-sm-6">
 							<label for="inputNama">Nama</label>
-							<input type="name" name="name" id="name" class="form-control @error('name') is-invalid @enderror" placeholder="Nama.." value="{{ old('name', $update ? $dosen->name:'') }}">
+							<input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" placeholder="Nama.." value="{{ old('name', $update ? $dosen->user->name:'') }}">
 						</div>	
 						@error('name')
                         	<span role="alert">
@@ -29,7 +37,7 @@
 					<div class="form-group">
 						<div class="col-sm-6">
 							<label for="inputPassword">Password</label>
-							<input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password.." value="{{ old('password', $update ? $dosen->password_text:'') }}" autocomplete="new-password">
+							<input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password.." value="{{ old('password', $update ? $dosen->user->password_text:'') }}" autocomplete="new-password">
 						</div>
 						@error('password')
                         	<span  role="alert">
@@ -53,6 +61,24 @@
 							<input type="password" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="Confirm Password.." autocomplete="new-password">
 						</div>						
 					</div>
+          <div class="form-group">
+            <div class="col-sm-6">
+              <label for="exampleInputFile">Upload Foto Dosen</label>
+              @if($update)
+              <div class="col-sm-3">
+                <img src="{{$dosen->image_url}}" height="60px" width="60px" alt="image">
+              </div>
+              @endif
+                <div class="input-group">
+
+                  <div class="custom-file">
+                    <input type="file" name="image" class="custom-file-input" id="exampleInputFile">
+                      <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                  </div>
+                </div>
+            </div>
+          </div>
+
 @push('scripts')
 <script type="text/javascript">
 	$(document).ready(function(){		
@@ -63,7 +89,7 @@
 				$('#password').attr('type','password');
 			}
 		});
-		
+		bsCustomFileInput.init();
 	});
 
 </script>

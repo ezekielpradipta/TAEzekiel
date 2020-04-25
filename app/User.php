@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-
+use Illuminate\Support\Facades\Storage;
 class User extends Authenticatable
 {
     use Notifiable;
@@ -15,6 +15,10 @@ class User extends Authenticatable
 
     const USER_IS_ACTIVE = '1';
     const USER_IS_NOT_ACTIVE ='0';
+    
+    public function dosen(){
+        return $this->hasOne(Dosen::class);
+    }
     /**
      * The attributes that are mass assignable.
      *
@@ -41,4 +45,5 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    
 }
