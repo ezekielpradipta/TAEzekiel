@@ -46,7 +46,7 @@
 							<select class="form-control" required name="dosen_id">
 								<option value="">--Pilih Dosen--</option>
 								@foreach ($dosens as $dosen)
-								<option value="{{$dosen->id}}">{{$dosen->name}}</option>
+								<option value="{{$dosen->id}}">{{$dosen->user->name}}</option>
 								@endforeach
 							</select>
 						</div>

@@ -111,6 +111,7 @@
         if(pass1 == pass2){
             $("#msg").html('<label class ="fa fa-check" style="color: green;"></label>');
             $("#msg2").html('<label class ="fa fa-check" style="color: green;"></label>');
+            $('#register').attr('disabled', false);
         } else {
             $("#msg").html('<label class="fa fa-remove" style="color: red;"></label>');  
             $("#msg2").html('<label class="fa fa-remove" style="color: red;"></label>');

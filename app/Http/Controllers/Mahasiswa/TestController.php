@@ -7,11 +7,12 @@ use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use App\Mahasiswa;
+use App\Dosen;
 use Illuminate\Support\Facades\DB;
 class TestController extends Controller
 {
     public function index(){
-    	$dosens =User::where('role','dosen')->get();
+    	$dosens =Dosen::first()->get();
     	return view('test',compact('dosens'));
     }
     public function confirm(Request $request){
