@@ -36,7 +36,7 @@
                 ajax: '{{ route('admin.dosen.data') }}',
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex' },
-                    { data: 'user.name',  name: 'user.name' },
+                    { data: 'nama',  name: 'nama' },
                     { data: 'user.email', name: 'user.email' },
                     { data: 'nidn', name: 'nidn' },
                     { data: 'action', name: 'action', orderable: false, searchable: false},

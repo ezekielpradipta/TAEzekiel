@@ -20,7 +20,6 @@ Route::get('/tes', function () {
     return view('test');
 });
 	Route::post('register/cekemail', 'RegisterController@cekEmail')->name('register.cekEmail');
-	Route::post('register/cekname', 'RegisterController@cekNama')->name('register.cekNama');
 	Route::post('register/cekuname', 'RegisterController@cekUsername')->name('register.cekUsername');
 	
 Route::group(['middleware' => ['guest']], function () {    

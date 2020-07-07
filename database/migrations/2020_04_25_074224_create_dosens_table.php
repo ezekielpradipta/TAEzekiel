@@ -17,6 +17,8 @@ class CreateDosensTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('nidn');
+            $table->string('slugImage');
+            $table->string('nama');
             $table->timestamps();
             $table->string('image')->default(Dosen::USER_PHOTO_DEFAULT);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');

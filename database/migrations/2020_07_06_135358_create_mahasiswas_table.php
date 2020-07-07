@@ -24,6 +24,7 @@ class CreateMahasiswasTable extends Migration
             $table->string('nim');
             $table->integer('totaltak')->default(0);
             $table->enum('gender',['L','P'])->nullable();
+            $table->string('slugImage');
             $table->string('image')->default(Mahasiswa::USER_PHOTO_DEFAULT);
             $table->timestamps();
         });

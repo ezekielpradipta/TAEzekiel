@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 use App\User;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Support\Str;
 class DosenController extends Controller
 {
     /**
@@ -41,7 +41,7 @@ class DosenController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'name' => ['required', 'string', 'max:255','unique:users,name'],
+            'nama' => ['required', 'string', 'max:255','unique:dosens,nama'],
             'email' => ['required', 'string', 'regex:/st3telkom\.ac\.id|ittelkom-pwt\.ac\.id]/', 'max:255', 'unique:users,email'],
             'password' => ['required', 'string', 'min:8','same:password_confirmation'],
             'image'=>['nullable','image','max:2048'],
@@ -49,26 +49,33 @@ class DosenController extends Controller
         ]);
       
             $data =$request->all();
+
             $data['role']= User::USER_ROLE_DOSEN;
             $data['status']= User::USER_IS_ACTIVE;
             $data['password'] = bcrypt($request->password);
             $data['password_text'] = $request->password;
-            $data['username']= $request->name;
+            $data['username']= $request->username;
+            $data['nama']= $request->nama;
             $data['nidn']=$request->nidn;
+            $data['slugImage']=$request->nama;
+
             if ($request->image) {
-                $data['image']= $request->image->store('dosen','images');
+                $file = $request->file('image');
+                $filename = Str::slug($request->nama) . '.' . $file->getClientOriginalExtension();
+                $data['image']= $request->image->storeAs('dosen',$filename,'images');
             } else {
                 $data['image']= Dosen::USER_PHOTO_DEFAULT;
             }
             
+            
             $user = User::create($data);
-  if ($user) {
-        $user->dosen()->create($data);
-        $user->dosen->save();
-        return redirect()->route('admin.dosen.index')->with('success', 'Dosen berhasil ditambahkan');
-    } else {
-        return redirect()->route('admin.dosen.index')->with('fail', 'Dosen gagal ditambahkan');
-    }
+              if ($user) {
+                    $user->dosen()->create($data);
+                    $user->dosen->save();
+                    return redirect()->route('admin.dosen.index')->with('success', 'Dosen berhasil ditambahkan');
+                } else {
+                    return redirect()->route('admin.dosen.index')->with('fail', 'Dosen gagal ditambahkan');
+                }
       
     }
 
@@ -104,16 +111,15 @@ class DosenController extends Controller
     public function update(Request $request, Dosen $dosen)
     {
         $this->validate($request,[
-            'name' => ['required', 'string', 'max:255','exists:users,name'],
+            'nama' => ['required', 'string', 'max:255','exists:dosens,nama'],
             'password' => ['required', 'string', 'min:8','same:password_confirmation'],
             'image' => 'nullable|image|max:2048',
             'email' => 'required|exists:users,email',
-
         ]);
 
-        $data= $request->except(['password','image','_token','_method','nidn','password_confirmation']);
+        $data= $request->except(['password','nama', 'image','_token','_method','nidn','password_confirmation']);
         $data['role']= User::USER_ROLE_DOSEN;
-        $data['username']=$request->name;
+        $data['username']=$request->username;
         if($request->password)
         {
             $data['password'] = bcrypt($request->password);
@@ -121,16 +127,16 @@ class DosenController extends Controller
         }
         if($request->image)
         {
-            $data['image'] = $request->photo->store('dosen', 'images');
+            $file = $request->file('image');
+            $filename = Str::slug($request->nama) . '.' . $file->getClientOriginalExtension();
+            $data['image']= $request->image->storeAs('dosen',$filename,'images');
             $dosen->deletePhoto();
         }
         if($dosen->user()->update($data))
         {
             $dosen->update($data);
             $dosen->nidn = $request->nidn;
-                
-          
-
+            $dosen ->nama = $request->nama;
             $dosen->save();
 
             return redirect()->route('admin.dosen.index')->with('success', 'Dosen berhasil diubah');
@@ -160,7 +166,7 @@ class DosenController extends Controller
     }
 
     public function data(){
-        $dosen =Dosen::with('user')->latest()->get();
+        $dosen =Dosen::with('user')->first()->get();
         return Datatables::of($dosen)->addIndexColumn()
         ->addColumn('action',function($dosen){
             $mulai = '<form method="POST" action="'.route('admin.dosen.destroy',$dosen->id).' ">'.csrf_field().method_field('DELETE');

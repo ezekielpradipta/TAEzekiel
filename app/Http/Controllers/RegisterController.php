@@ -13,7 +13,6 @@ class RegisterController extends Controller
     }
     public function daftar(Request $request){
     	$this->validate($request,[
-            'name' => ['required', 'string', 'max:255','unique:users'],
        		'username' => ['required', 'string', 'max:255', 'unique:users'],
             'email' => ['required', 'string', 'regex:/st3telkom\.ac\.id|ittelkom-pwt\.ac\.id]/', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
@@ -23,7 +22,6 @@ class RegisterController extends Controller
         $data['role']= User::USER_ROLE_MHS;
         $data['status']= USER::USER_IS_NOT_ACTIVE; 
         $user =User::create([
-            'name' => $data['name'],
             'username' =>$data['username'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
@@ -43,17 +41,6 @@ class RegisterController extends Controller
     	if($request->get('email')){
     		$email = $request->get('email');
     		$data =DB::table("users")->where('email',$email)->count();
-    			if($data >0){
-    				echo "not_unique";
-    			} else {
-    				echo "unique";
-    			}
-    	}
-    }
-    public function cekNama(Request $request){
-    	if($request->get('name')){
-    		$name = $request->get('name');
-    		$data =DB::table("users")->where('name',$name)->count();
     			if($data >0){
     				echo "not_unique";
     			} else {

@@ -14,26 +14,38 @@
                         <span id="error_email" class="error_email"></span>
                           
 					</div>
+					<div class="form-group">
+						<div class="col-sm-6">
+							<label for="inputUsername">Username</label>
+							<input type="text" name="username" id="username" class="form-control @error('username') is-invalid @enderror" placeholder="Username.." value="{{ old('username', $update ? $dosen->user->username:'') }}">
+						</div>	
+						@error('username')
+                        	<span role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                        <span id="unamebener" class="unamebener"></span>
+                        <span id="error_uname" class="error_uname"></span>
+                                       
+					</div>
           <div class="form-group">
             <div class="col-sm-6">
               <label for="inputNIDN">NIDN</label>
               <input type="text" name="nidn" id="nidn" class="form-control @error('nidn') is-invalid @enderror" placeholder="NIDN.." value="{{ old('nidn', $update ? $dosen->nidn:'') }}">
             </div>
           </div>
-					<div class="form-group">
-						<div class="col-sm-6">
-							<label for="inputNama">Nama</label>
-							<input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" placeholder="Nama.." value="{{ old('name', $update ? $dosen->user->name:'') }}">
-						</div>	
-						@error('name')
-                        	<span role="alert">
+          <div class="form-group">
+            <div class="col-sm-6">
+              <label for="inputNama">Nama</label>
+              <input type="text" name="nama" id="nama" class="form-control @error('nama') is-invalid @enderror" placeholder="Nama.." value="{{ old('nama', $update ? $dosen->nama:'') }}">
+            </div>  
+            @error('nama')
+                          <span role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
-                        <span id="namabener" class="namabener"></span>
-                        <span id="error_name" class="error_name"></span>
                                        
-					</div>
+          </div>
 					<div class="form-group">
 						<div class="col-sm-6">
 							<label for="inputPassword">Password</label>
@@ -97,75 +109,74 @@
 @push('scripts2')
 <script>
     $(document).ready(function(){
-
-     $('#email').blur(function(){
-      var error_email = '';
-      var email = $('#email').val();
-      var _token = $('input[name="_token"]').val();
-      var filter = /^([a-zA-Z0-9_\.\-])+\@(st3telkom\.ac\.id|ittelkom-pwt\.ac\.id)+$/;
-      if(!filter.test(email))
-      {
-       $('#error_email').html('<label id="iderroremail" class="text-danger">Bukan Email Institusi</label>');
-       $('#idemailbener').html('<label></label>');
-       $('#email').addClass('has-error');
-       $('#register').attr('disabled', 'disabled');
-      }
-      else
-      {
-       $.ajax({
-        url:"{{ route('register.cekEmail') }}",
-        method:"POST",
-        data:{email:email, _token:_token},
-        success:function(result)
+      $('#email').blur(function(){
+        var error_email = '';
+        var email = $('#email').val();
+        var _token = $('input[name="_token"]').val();
+        var filter = /^([a-zA-Z0-9_\.\-])+\@(st3telkom\.ac\.id|ittelkom-pwt\.ac\.id)+$/;
+        if(!filter.test(email))
         {
-         if(result == 'unique')
-         {
-          $('#emailbener').html('<label id="idemailbener" class="text-success">Email Tersedia</label>');
-          $('#iderroremail').html('<label></label>');
-          $('#iderroremail2').html('<label></label>');
-          $('#email').removeClass('has-error');
-          $('#register').attr('disabled', false);
-         }
-         else
-         {
-          $('#error_email').html('<label id="iderroremail2" class="text-danger">Email Sudah Digunakan</label>');
-          $('#idemailbener').html('<label></label>');
-          $('#email').addClass('has-error');
-          $('#register').attr('disabled', 'disabled');
-         }
+         $('#error_email').html('<label id="iderroremail" class="text-danger">Bukan Email Institusi</label>');
+         $('#idemailbener').html('<label></label>');
+         $('#email').addClass('has-error');
+         $('#register').attr('disabled', 'disabled');
         }
-       })
-      }
+        else
+        {
+         $.ajax({
+          url:"{{ route('register.cekEmail') }}",
+          method:"POST",
+          data:{email:email, _token:_token},
+          success:function(result)
+          {
+           if(result == 'unique')
+           {
+            $('#emailbener').html('<label id="idemailbener" class="text-success">Email Tersedia</label>');
+            $('#iderroremail').html('<label></label>');
+            $('#iderroremail2').html('<label></label>');
+            $('#email').removeClass('has-error');
+            $('#register').attr('disabled', false);
+           }
+           else
+           {
+            $('#error_email').html('<label id="iderroremail2" class="text-danger">Email Sudah Digunakan</label>');
+            $('#idemailbener').html('<label></label>');
+            $('#email').addClass('has-error');
+            $('#register').attr('disabled', 'disabled');
+           }
+          }
+         })
+        }
      });
-    });
-
-         $('#name').blur(function(){
-          var error_name = '';
-          var name = $('#name').val();
+      $('#username').blur(function(){
+          var error_uname = '';
+          var username = $('#username').val();
           var _token = $('input[name="_token"]').val();
           
            $.ajax({
-            url:"{{ route('register.cekNama') }}",
+            url:"{{ route('register.cekUsername') }}",
             method:"POST",
-            data:{name:name, _token:_token},
+            data:{username:username, _token:_token},
             success:function(result)
             {
              if(result == 'unique')
              {
-              $('#namabener').html('<label id="idnamabener" class="text-success">Nama Tersedia</label>');
-              $('#iderrorname').html('<label></label>');
-              $('#name').removeClass('has-error');
+              $('#unamebener').html('<label id="idunamebener" class="fa fa-check" style="color: green;"></label>');
+              $('#iderroruname').html('<label></label>');
+              $('#username').removeClass('has-error');
               $('#register').attr('disabled', false);
              }
              else
              {
-              $('#error_name').html('<label id="iderrorname" class="text-danger">Nama Sudah Digunakan</label>');
-              $('#idnamabener').html('<label></label>');
-              $('#name').addClass('has-error');
+              $('#error_uname').html('<label id="iderroruname" class="text-danger" style="margin-bottom: -4rem;">Nama Sudah Digunakan</label>');
+              $('#idunamebener').html('<label></label>');
+              $('#username').addClass('has-error');
               $('#register').attr('disabled', 'disabled');
              }
             }
            })
      });
+    });
+
  </script>
 @endpush

@@ -19,21 +19,6 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text bg-white px-4 border-md border-right-0"><i class="fa fa-user text-muted"></i></span>
                                 </div>
-                                    <input id="name" type="text" name="name" placeholder="Nama" class="form-control bg-white border-left-0 border-md @error('name') is-invalid @enderror mr-2"value="{{ old('name') }}" autocomplete="name" >
-                                    @error('name')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                    @enderror
-                                        <div id="namabener" class="namabener"></div>
-                                        <div class="col-lg-12" style="font-size: small;">
-                                             <span id="error_name" class="error_name"></span>
-                                        </div>
-                            </div>
-                            <div class="input-group col-lg-12 mb-4">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text bg-white px-4 border-md border-right-0"><i class="fa fa-user text-muted"></i></span>
-                                </div>
                                     <input id="username" type="text" name="username" placeholder="Username" class="form-control bg-white border-left-0 border-md @error('username') is-invalid @enderror mr-2"value="{{old('username')}}" autocomplete="username">
                                         @error('username')
                                                 <span class="invalid-feedback" role="alert">
@@ -162,34 +147,6 @@
         }
        })
       }
-     });
-     $('#name').blur(function(){
-          var error_name = '';
-          var name = $('#name').val();
-          var _token = $('input[name="_token"]').val();
-          
-           $.ajax({
-            url:"{{ route('register.cekNama') }}",
-            method:"POST",
-            data:{name:name, _token:_token},
-            success:function(result)
-            {
-             if(result == 'unique')
-             {
-              $('#namabener').html('<label id="idnamabener" class="fa fa-check" style="color: green;"></label>');
-              $('#iderrorname').html('<label></label>');
-              $('#name').removeClass('has-error');
-              $('#register').attr('disabled', false);
-             }
-             else
-             {
-              $('#error_name').html('<label id="iderrorname" class="text-danger" style="margin-bottom: -4rem;">Nama Sudah Digunakan</label>');
-              $('#idnamabener').html('<label></label>');
-              $('#name').addClass('has-error');
-              $('#register').attr('disabled', 'disabled');
-             }
-            }
-           })
      });
      $('#username').blur(function(){
           var error_uname = '';
