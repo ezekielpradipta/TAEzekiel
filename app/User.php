@@ -12,12 +12,15 @@ class User extends Authenticatable
     const USER_ROLE_ADMIN = 'admin';
     const USER_ROLE_MHS = 'mhs';
     const USER_ROLE_DOSEN ='dosen';
-
+    const USER_ROLE_KMS ='kemahasiswaan';
     const USER_IS_ACTIVE = '1';
     const USER_IS_NOT_ACTIVE ='0';
     
     public function dosen(){
         return $this->hasOne(Dosen::class);
+    }
+    public function kemahasiswaan(){
+        return $this->hasOne(Kemahasiswaan::class);
     }
     /**
      * The attributes that are mass assignable.

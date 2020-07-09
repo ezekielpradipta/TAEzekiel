@@ -90,7 +90,6 @@
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
-                
               </p>
             </a>
           </li>
@@ -99,7 +98,6 @@
               <i class="nav-icon fas fa-user"></i>
               <p>
                 Data Mahasiswa
-               
               </p>
             </a>
           </li>
@@ -108,10 +106,46 @@
               <i class="nav-icon fas fa-user"></i>
               <p>
                 Data Dosen
-               
               </p>
             </a>
-          </li>       
+          </li>
+          <li class="nav-item">
+            <a href="{{route('admin.kemahasiswaan.index')}}" class="nav-link">
+              <i class="nav-icon fas fa-user"></i>
+              <p>
+                Data Kemahasiswaan
+              </p>
+            </a>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                TAK Kumulatif
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('admin.takkumulatif.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Nilai Minimun TAK</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('admin.prodi.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Daftar Prodi</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('admin.angkatan.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Daftar Angkatan</p>
+                </a>
+              </li>
+            </ul>
+          </li>         
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

@@ -37,14 +37,22 @@ Route::group(['middleware'=>['auth']],function(){
 		Route::namespace('Admin')->group(function(){
 			Route::prefix('admin')->group(function(){
 				Route::get('/', 'AdminController@index')->name('admin.dashboard.index');
-
-				Route::prefix('mahasiswa')->group(function(){
-					Route::get('/','MahasiswaController@index')->name('admin.mahasiswa.index');
-					Route::get('/data','MahasiswaController@data')->name('admin.mahasiswa.data');	
-				});
-				Route::resource('dosen','DosenController',['as'=>'admin'])->except('show');
-				Route::get('dosen/data','DosenController@data')->name('admin.dosen.data');
-
+				Route::resource('prodi','ProdiController',['as'=>'admin'])->except('show');
+				Route::get('prodi/data','ProdiController@data')->name('admin.prodi.data');
+				Route::resource('angkatan','AngkatanController',['as'=>'admin'])->except('show');
+				Route::get('angkatan/data','AngkatanController@data')->name('admin.angkatan.data');
+				Route::resource('takkumulatif','TAKKumulatifController',['as'=>'admin'])->except('show');
+				Route::get('takkumulatif/data','TAKKumulatifController@data')->name('admin.takkumulatif.data');			
+					Route::prefix('data')->group(function(){
+						Route::prefix('mahasiswa')->group(function(){
+							Route::get('/','MahasiswaController@index')->name('admin.mahasiswa.index');
+							Route::get('/data','MahasiswaController@data')->name('admin.mahasiswa.data');	
+						});
+						Route::resource('dosen','DosenController',['as'=>'admin'])->except('show');
+						Route::get('dosen/data','DosenController@data')->name('admin.dosen.data');
+						Route::resource('kemahasiswaan','KemahasiswaanController',['as'=>'admin'])->except('show');
+						Route::get('kemahasiswaan/data','KemahasiswaanController@data')->name('admin.kemahasiswaan.data');
+					});
 			});
 		});
 	});
