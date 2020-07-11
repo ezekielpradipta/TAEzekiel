@@ -117,6 +117,47 @@
               </p>
             </a>
           </li>
+                    <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                DATA TAK
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('admin.takkumulatif.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Daftar TAK</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('admin.kategoriTAK.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Daftar Kategori</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('admin.pilarTAK.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Daftar Pilar</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('admin.kegiatanTAK.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Daftar Kegiatan</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('admin.angkatan.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Daftar Tingkat</p>
+                </a>
+              </li>
+            </ul>
+          </li>     
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>

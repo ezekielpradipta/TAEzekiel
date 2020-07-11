@@ -53,6 +53,15 @@ Route::group(['middleware'=>['auth']],function(){
 						Route::resource('kemahasiswaan','KemahasiswaanController',['as'=>'admin'])->except('show');
 						Route::get('kemahasiswaan/data','KemahasiswaanController@data')->name('admin.kemahasiswaan.data');
 					});
+					Route::prefix('tak')->group(function(){
+						Route::resource('kategoriTAK','KategoriTAKController',['as'=>'admin'])->except('show');
+						Route::get('kategoriTAK/data','KategoriTAKController@data')->name('admin.kategoriTAK.data');
+						Route::resource('pilarTAK','PilarTAKController',['as'=>'admin'])->except('show');
+						Route::get('pilarTAK/data','PilarTAKController@data')->name('admin.pilarTAK.data');
+						Route::resource('kegiatanTAK','KegiatanTAKController',['as'=>'admin'])->except('show');
+						Route::get('kegiatanTAK/data','KegiatanTAKController@data')->name('admin.kegiatanTAK.data');
+						
+					});
 			});
 		});
 	});
