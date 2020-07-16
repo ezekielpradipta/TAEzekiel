@@ -1,5 +1,5 @@
 @php
-	$judul = 'Kegiatan TAK'
+	$judul = 'Tingkat TAK'
 @endphp
 @extends('layouts.admin')
 @section('content')
@@ -9,16 +9,16 @@
 		<div class="card">
 			<div class="card-header">
 				<h3 class="card-title">Daftar {{$judul}}</h3>
-				<a href="{{route('admin.kegiatanTAK.create')}}" class="btn btn-primary float-right">
+				<a href="{{route('admin.tingkatTAK.create')}}" class="btn btn-primary float-right">
 					<span class="fas fa-plus"> Tambah {{$judul}}</span>
 				</a>
 			</div>
 			<div class="col-sm-6">
-            <select name="pilar_filter" id="pilar_filter" class="form-control" required>
-                <option value="">- Pilih Pilar -</option>
-                @foreach($pilartaks as $pilartak)
-                    <option value="{{ $pilartak->id }}"> {{$pilartak->kategoritak->nama}} -
-                    {{ $pilartak->nama }}</option>
+            <select name="kegiatan_filter" id="kegiatan_filter" class="form-control" required>
+                <option value="">- Pilih Kegiatan -</option>
+                @foreach($kegiatantaks as $kegiatantak)
+                    <option value="{{ $kegiatantak->id }}"> 
+                    {{ $kegiatantak->nama }}</option>
                 @endforeach
             </select>
         </div>
@@ -27,6 +27,7 @@
 				<table id="dt" class="table table-bordered table-striped">
 					<thead>
 						<th>Nama Kegiatan</th>
+						<th>Nama Tingkat</th>
 						<th>Aksi</th>
 					</thead>
 				</table>
@@ -38,27 +39,27 @@
     <script>
         $(document).ready(function(){
 		 fetch_data();
-		 function fetch_data(pilartaks = '')
+		 function fetch_data(kegiatantaks = '')
 		 {
 		  $('#dt').DataTable({
 		   processing: true,
 		   serverSide: true,
 		   ajax: {
-		    url:"{{ route('admin.kegiatanTAK.index') }}",
-		    data: {pilartaks:pilartaks}
+		    url:"{{ route('admin.tingkatTAK.index') }}",
+		    data: {kegiatantaks:kegiatantaks}
 		   },
 			columns: [
-                    
-                    { data: 'nama', name: 'nama' },
+                 { data: 'nama', name: 'kegiatantaks.nama' },
+                 { data: 'keterangan', name: 'tingkattaks.keterangan' },
      			 { data: 'action', name: 'action', orderable: false, searchable: false}
                 ]
 		  });
 		 }
 		 
-		 $('#pilar_filter').change(function(){
-		  var pilartak_id = $('#pilar_filter').val();
+		 $('#kegiatan_filter').change(function(){
+		  var kegiatantak_id = $('#kegiatan_filter').val();
 		  $('#dt').DataTable().destroy();
-		  fetch_data(pilartak_id);
+		  fetch_data(kegiatantak_id);
 		 });
 
 		});

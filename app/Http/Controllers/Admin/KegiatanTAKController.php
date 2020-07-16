@@ -15,10 +15,51 @@ class KegiatanTAKController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+
+ public function index(Request $request)
     {
-        return view('admin.kegiatanTAK.index');
+     if(request()->ajax())
+     {
+       if($request->pilartaks)
+      {
+       $kegiatanTAK = DB::table('kegiatantaks')
+        ->join('pilartaks', 'pilartaks.id', '=', 'kegiatantaks.pilartak_id')
+         ->select('kegiatantaks.id','kegiatantaks.nama')
+         ->where('kegiatantaks.pilartak_id', $request->pilartaks);
+       // $pilartak_id = $request->pilartaks;
+       // $kegiatanTAK = KegiatanTAK::with('pilartaks')->where('pilartak_id',$pilartak_id)->first();
+      }
+      
+      else
+      {
+        $kegiatanTAK = DB::table('kegiatantaks')
+         ->join('pilartaks', 'pilartaks.id', '=', 'kegiatantaks.pilartak_id')
+         ->select('kegiatantaks.id','kegiatantaks.nama');
+       // $kegiatanTAK = KegiatanTAK::with('pilartaks')->latest()->get();
+      }
+      return datatables()->of($kegiatanTAK)
+            ->addIndexColumn()
+            ->addColumn('action', function ($kegiatanTAK) {
+
+                $form_start = '<form method="POST" class="form-delete" action="'.route('admin.kegiatanTAK.destroy', $kegiatanTAK->id).'">'.
+                    csrf_field().method_field('DELETE');
+
+                $action =  '<a href="'.route('admin.kegiatanTAK.edit', $kegiatanTAK->id).'" class="btn btn-success"><span class="fa fa-pencil">
+                </span></a>
+                                    <button type="submit" onclick="return confirm(\'Apakah anda yakin untuk menghapus data ini ?\');" 
+                                    class="btn btn-danger"><span class="fa fa-trash"></span></button>';
+                $form_end = '</form>';
+
+                return $form_start.$action.$form_end;
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+
+     }
+       $pilartaks = PilarTAK::orderBy('nama', 'ASC')->get();
+     return view('admin.kegiatanTAK.index', compact('pilartaks'));
     }
+    
 
     /**
      * Show the form for creating a new resource.
@@ -28,7 +69,7 @@ class KegiatanTAKController extends Controller
     public function create()
     {
         
-        $pilartaks = PilarTAK::orderBy('nama', 'ASC')->get();
+        $pilartaks = PilarTAK::with('kategoritak')->latest()->get();
         return view('admin.kegiatanTAK.create', compact('pilartaks'));
     }
 
@@ -127,30 +168,5 @@ class KegiatanTAKController extends Controller
         }
 
         return redirect()->route('admin.kegiatanTAK.index')->with('success', 'Data Kegiatan TAK berhasil dihapus');
-    }
-     public function data()
-    {
-        
-        $kegiatanTAK = KegiatanTAK::with('pilartak')->latest()->get();
-        return DataTables::of($kegiatanTAK)
-            ->addIndexColumn()
-            ->addColumn('action', function ($kegiatanTAK) {
-
-                $form_start = '<form method="POST" class="form-delete" action="'.route('admin.kegiatanTAK.destroy', $kegiatanTAK->id).'">'.
-                    csrf_field().method_field('DELETE');
-
-                $action =  '<a href="'.route('admin.kegiatanTAK.edit', $kegiatanTAK->id).'" class="btn btn-success"><span class="fa fa-pencil">
-                </span></a>
-                                    <button type="submit" onclick="return confirm(\'Apakah anda yakin untuk menghapus data ini ?\');" 
-                                    class="btn btn-danger"><span class="fa fa-trash"></span></button>';
-                $form_end = '</form>';
-
-                return $form_start.$action.$form_end;
-            })
-            ->editColumn('pilartak',function($kegiatanTAK){
-            return   $kegiatanTAK->pilarTAK->kategoriTAK->nama .' - '.$kegiatanTAK->pilarTAK->nama ;
-        })
-            ->rawColumns(['action','pilartak'])
-            ->make(true);
     }
 }

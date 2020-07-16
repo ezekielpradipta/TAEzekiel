@@ -12,4 +12,7 @@ class KegiatanTAK extends Model
     public function pilartak(){
     	return $this->belongsTo(PilarTAK::class);
     }
+    public function tak(){
+        return $this->hasMany(TAK::class);
+    }
 }

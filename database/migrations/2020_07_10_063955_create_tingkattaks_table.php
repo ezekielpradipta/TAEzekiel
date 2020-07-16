@@ -16,7 +16,7 @@ class CreateTingkattaksTable extends Migration
         Schema::create('tingkattaks', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('kegiatantak_id');
-            $table->string('nama');
+            $table->string('keterangan');
             $table->foreign('kegiatantak_id')->references('id')->on('kegiatantaks')->onDelete('cascade')->onUpdate('cascade');
             
             $table->timestamps();
