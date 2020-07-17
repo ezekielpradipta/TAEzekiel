@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-
+use App\Admin;
 class CreateAdminsTable extends Migration
 {
     /**
@@ -20,7 +20,7 @@ class CreateAdminsTable extends Migration
             $table->string('slugImage');
             $table->string('nama');
             $table->timestamps();
-            $table->string('image')->default(Dosen::USER_PHOTO_DEFAULT);
+            $table->string('image')->default(Admin::USER_PHOTO_DEFAULT);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
     }

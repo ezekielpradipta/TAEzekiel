@@ -24,7 +24,10 @@ class Dosen extends Model
     public function user(){
     	return $this->belongsTo(User::class);
     }
-    public function deleteimage()
+    public function takdosen(){
+        return $this->hasMany(Takdosen::class);
+    }
+    public function deleteImage()
     {
         if($this->image!=$this::USER_PHOTO_DEFAULT)
         {

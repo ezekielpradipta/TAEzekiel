@@ -5,7 +5,7 @@
             <select name="kategoritak_id" id="kategoritak_id" class="form-control" required>
                 <option value="">- Pilih Kategori -</option>
                 @foreach($kategoritaks as $id => $nama)
-                    <option value="{{ $id }}" @if($update && $tak->kategoritak_id==$id) selected @endif>
+                    <option value="{{ $id }}">
                     {{ $nama }}</option>
                 @endforeach
             </select>

@@ -125,15 +125,17 @@ class KemahasiswaanController extends Controller
             $data['password'] = bcrypt($request->password);
             $data['password_text'] = $request->password;
         }
-        if($request->image)
-        {
-            $file = $request->file('image');
-            $filename = Str::slug($request->nama) . '.' . $file->getClientOriginalExtension();
-            $data['image']= $request->image->storeAs('kemahasiswaan',$filename,'images');
-            $kemahasiswaan->deletePhoto();
-        }
+
         if($kemahasiswaan->user()->update($data))
         {
+            if($request->image)
+            {
+                $kemahasiswaan->deleteImage();
+                $file = $request->file('image');
+                $filename = Str::slug($request->nama) . '.' . $file->getClientOriginalExtension();
+                $data['image']= $request->image->storeAs('kemahasiswaan',$filename,'images');
+                 $kemahasiswaan->image = $data['image']; 
+            }
             $kemahasiswaan->update($data);
             $kemahasiswaan->nidn = $request->nidn;
             $kemahasiswaan ->nama = $request->nama;
@@ -155,7 +157,7 @@ class KemahasiswaanController extends Controller
     {
         DB::beginTransaction();
         try{
-            $kemahasiswaan->deleteimage();
+            $kemahasiswaan->deleteImage();
             $kemahasiswaan->user()->delete();
             DB::commit();
         }catch(\Exception $e){

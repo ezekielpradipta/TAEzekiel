@@ -43,9 +43,9 @@ class KategoriTAKController extends Controller
         $data= $request->all();
         $kategoriTAK =KategoriTAK::create($data);
             if ($kategoriTAK) {
-                return redirect()->route('admin.kategoriTAK.index')->with('success', 'Data Kategori TAK berhasil ditambahkan');
+                return redirect()->back()->with('success', 'Data Kategori TAK berhasil ditambahkan');
                 } else {
-                return redirect()->route('admin.kategoriTAK.index')->with('fail', 'Data Kategori TAK gagal ditambahkan');
+                return redirect()->back()->with('fail', 'Data Kategori TAK gagal ditambahkan');
                 }
     }
 

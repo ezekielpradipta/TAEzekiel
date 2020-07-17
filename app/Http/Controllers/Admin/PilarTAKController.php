@@ -47,9 +47,9 @@ class PilarTAKController extends Controller
         $data= $request->all();
         $pilarTAK =PilarTAK::create($data);
             if ($pilarTAK) {
-                return redirect()->route('admin.pilarTAK.index')->with('success', 'Pilar TAK  berhasil ditambahkan');
+                return redirect()->back()->with('success', 'Pilar TAK  berhasil ditambahkan');
                 } else {
-                return redirect()->route('admin.pilarTAK.index')->with('fail', 'Pilar TAK  gagal ditambahkan');
+                return redirect()->back()->with('fail', 'Pilar TAK  gagal ditambahkan');
                 }
     }
 

@@ -13,7 +13,7 @@
 		<form  method="post" enctype="multipart/form-data" action="{{route('admin.tak.store')}}">
 			<input type="hidden" name="_token" value="{{ csrf_token() }}">
 			<div class="card-body">
-        @include('admin.tak.formEdit',['update'=>false])
+        @include('admin.tak.form',['update'=>false])
 			</div>
 			<div class="card-footer">
 				<button type="submit" id="register" class="btn btn-primary"><span class="fa fa-plus"></span> Tambah {{ $judul }}</button>

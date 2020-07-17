@@ -17,12 +17,19 @@ class CreateMahasiswasTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('dosen_id');
+            $table->unsignedBigInteger('prodi_id');
+            $table->unsignedBigInteger('angkatan_id');
             $table->foreign('dosen_id')->references('id')->on('dosens')->onDelete('cascade')
             ->onUpdate('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')
             ->onUpdate('cascade');
+            $table->foreign('prodi_id')->references('id')->on('prodis')->onDelete('cascade')
+            ->onUpdate('cascade');
+            $table->foreign('angkatan_id')->references('id')->on('angkatans')->onDelete('cascade')
+            ->onUpdate('cascade');
             $table->string('nim');
-            $table->integer('totaltak')->default(0);
+            $table->string('kelas');
+            $table->string('nama');
             $table->enum('gender',['L','P'])->nullable();
             $table->string('slugImage');
             $table->string('image')->default(Mahasiswa::USER_PHOTO_DEFAULT);

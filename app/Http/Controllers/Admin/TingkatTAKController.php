@@ -86,9 +86,9 @@ class TingkatTAKController extends Controller
         $data= $request->all();
         $tingkatTAK =TingkatTAK::create($data);
             if ($tingkatTAK) {
-                return redirect()->route('admin.tingkatTAK.index')->with('success', 'Tingkat TAK  berhasil ditambahkan');
+                return redirect()->back()->with('success', 'Tingkat TAK  berhasil ditambahkan');
                 } else {
-                return redirect()->route('admin.tingkatTAK.index')->with('fail', 'Tingkat TAK  gagal ditambahkan');
+                return redirect()->back()->with('fail', 'Tingkat TAK  gagal ditambahkan');
                 }
     }
 

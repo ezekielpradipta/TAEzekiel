@@ -1,11 +1,11 @@
-    <div class="form-group @error('kategoritak_id') has-error @enderror">
+<div class="form-group @error('kategoritak_id') has-error @enderror">
         <label for="kategoritak_id">Kategori</label>
         <div class="row">
         <div class="col-sm-6">
             <select name="kategoritak_id" id="kategoritak_id" class="form-control" required>
                 <option value="">- Pilih Kategori -</option>
                 @foreach($kategoritaks as $id => $nama)
-                    <option value="{{ $id }}" @if($update && $tak->kategoritak_id==$id) selected @endif>
+                    <option value="{{ $id }}">
                     {{ $nama }}</option>
                 @endforeach
             </select>
@@ -68,10 +68,10 @@
     </div>
     <div class="form-group">
             <div class="col-sm-6">
-              <label for="InputScore">Skor</label>
-              <input type="text" name="score" id="score" class="form-control @error('score') is-invalid @enderror" placeholder="Skor.." value="{{ old('score', $update ? $tak->score:'') }}">
+              <label for="InputScore">Deskripso</label>
+              <input type="text" name="deskripsi" id="deskripsi" class="form-control @error('deskripsi') is-invalid @enderror" placeholder="Skor..">
             </div>
-         @error('score')
+         @error('deskripsi')
         <p class="help-block">{{ $message }}</p>
         @enderror
     </div>
@@ -84,8 +84,8 @@
                var kategoritak_id = jQuery(this).val();
                if(kategoritak_id)
                {
-                var url = "{{route('admin.tak.cekPilar')}}".concat("/" + kategoritak_id);   
-                console.log(url);
+                var url = "{{route('dosen.tak.cekPilar')}}".concat("/" + kategoritak_id);   
+             
                   jQuery.ajax({
                      url :  url,
                      type : "GET",
@@ -110,8 +110,8 @@
                var pilartak_id = jQuery(this).val();
                if(pilartak_id)
                {
-                var urlPilar = "{{route('admin.tak.cekKegiatan')}}".concat("/" + pilartak_id);   
-                console.log(urlPilar);
+                var urlPilar = "{{route('dosen.tak.cekKegiatan')}}".concat("/" + pilartak_id);   
+         
                   jQuery.ajax({
                      url : urlPilar,
                      type : "GET",
@@ -136,10 +136,10 @@
                var kegiatantak_id = jQuery(this).val();
                if(kegiatantak_id)
                {
-                var urlKegiatan = "{{route('admin.tak.cekTingkat')}}".concat("/" + kegiatantak_id);   
+                var urlKegiatan = "{{route('dosen.tak.cekTingkat')}}".concat("/" + kegiatantak_id);   
                 console.log(urlKegiatan);
                   jQuery.ajax({
-                     url :    urlKegiatan,
+                     url :  urlKegiatan,
                      type : "GET",
                      dataType : "json",
                      success:function(data)

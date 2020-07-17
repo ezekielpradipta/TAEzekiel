@@ -67,10 +67,10 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="{{Auth ::user()->admin->image_url}}" class="img-circle elevation-2" alt="User Image">
+          <img src="{{Auth ::user()->dosen->image_url}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">{{ Auth::user()->admin->nama }}</a>
+          <a href="#" class="d-block">{{ Auth::user()->dosen->nama }}</a>
         </div>
       </div>
 
@@ -85,101 +85,17 @@
               </p>
             </a>
           </li>
-        <li class="nav-header">DATA-DATA</li>
+        <li class="nav-header">DATA-DATA</li>    
           <li class="nav-item">
-            <a href="{{route('admin.mahasiswa.index')}}" class="nav-link">
-              <i class="nav-icon fas fa-user"></i>
-              <p>
-                Data Mahasiswa
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{route('admin.dosen.index')}}" class="nav-link">
-              <i class="nav-icon fas fa-user"></i>
-              <p>
-                Data Dosen
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{route('admin.kemahasiswaan.index')}}" class="nav-link">
-              <i class="nav-icon fas fa-user"></i>
-              <p>
-                Data Kemahasiswaan
-              </p>
-            </a>
-          </li>
-            <li class="nav-item">
-                <a href="{{route('admin.tak.index')}}" class="nav-link">
-                  <i class="fas fa-book nav-icon"></i>
-                  <p>Data TAK</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{route('admin.takkumulatif.index')}}" class="nav-link">
-                  <i class="fas fa-book nav-icon"></i>
-                  <p>Nilai Minimun TAK</p>
-                </a>
-              </li>
-           <li class="nav-header">SETTING</li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-cog"></i>
-              <p>
-                Konfig TAK
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{route('admin.kategoriTAK.index')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Daftar Kategori</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{route('admin.pilarTAK.index')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Daftar Pilar</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{route('admin.kegiatanTAK.index')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Daftar Kegiatan</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{route('admin.tingkatTAK.index')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Daftar Tingkat</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{route('admin.prodi.index')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Daftar Prodi</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{route('admin.angkatan.index')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Daftar Angkatan</p>
-                </a>
-              </li>
-            </ul>
-          </li>     
-          <li class="nav-item">
-            <a href="{{route('admin.profile.index')}}" class="nav-link">
+            <a href="{{route('dosen.tak.index')}}" class="nav-link">
               <i class="nav-icon fas fa-wrench"></i>
               <p>
-                Ubang Pengguna
+                TEST TAK
               </p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('logout')}}" class="nav-link">
+            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-power-off"></i>
               <p>
                 LogOut

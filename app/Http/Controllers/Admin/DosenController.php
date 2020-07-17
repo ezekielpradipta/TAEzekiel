@@ -10,6 +10,7 @@ use Yajra\DataTables\Facades\DataTables;
 use App\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 class DosenController extends Controller
 {
     /**
@@ -111,7 +112,7 @@ class DosenController extends Controller
     public function update(Request $request, Dosen $dosen)
     {
         $this->validate($request,[
-            'nama' => ['required', 'string', 'max:255','exists:dosens,nama'],
+            'nama' => ['required', 'string'],
             'password' => ['required', 'string', 'min:8','same:password_confirmation'],
             'image' => 'nullable|image|max:2048',
             'email' => 'required|exists:users,email',
@@ -125,18 +126,22 @@ class DosenController extends Controller
             $data['password'] = bcrypt($request->password);
             $data['password_text'] = $request->password;
         }
-        if($request->image)
-        {
-            $file = $request->file('image');
-            $filename = Str::slug($request->nama) . '.' . $file->getClientOriginalExtension();
-            $data['image']= $request->image->storeAs('dosen',$filename,'images');
-            $dosen->deletePhoto();
-        }
+
         if($dosen->user()->update($data))
         {
             $dosen->update($data);
             $dosen->nidn = $request->nidn;
-            $dosen ->nama = $request->nama;
+            $dosen->nama = $request->nama;
+            if($request->image)
+            {
+                $dosen->deleteImage();
+                $file = $request->file('image');
+                $filename = Str::slug($request->nama) . '.' . $file->getClientOriginalExtension();
+                $data['image']= $request->image->storeAs('dosen',$filename,'images');  
+                $dosen->image = $data['image']; 
+            }
+            
+
             $dosen->save();
 
             return redirect()->route('admin.dosen.index')->with('success', 'Dosen berhasil diubah');
@@ -155,7 +160,7 @@ class DosenController extends Controller
     {
         DB::beginTransaction();
         try{
-            $dosen->deleteimage();
+            $dosen->deleteImage();
             $dosen->user()->delete();
             DB::commit();
         }catch(\Exception $e){
@@ -191,3 +196,4 @@ class DosenController extends Controller
 
     }
 }
+

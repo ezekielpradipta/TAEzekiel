@@ -16,9 +16,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/tes', function () {
-    return view('test');
-});
+
+    Route::get('/dosendashboard', 'DosenController@dashboard')->name('dosen.dashboard.index');
+	Route::get('/tak', 'DosenTAKController@index')->name('dosen.tak.index');
+	Route::post('/tak', 'DosenTAKController@store')->name('dosen.tak.store');
+	Route::get('/tak/cekKegiatan/{id?}','DosenTAKController@cekKegiatan')->name('dosen.tak.cekKegiatan');
+	Route::get('/tak/cekTingkat/{id?}','DosenTAKController@cekTingkat')->name('dosen.tak.cekTingkat');
+	Route::get('/tak/cekPilar/{id?}','DosenTAKController@cekPilar')->name('dosen.tak.cekPilar');
 	Route::post('register/cekemail', 'RegisterController@cekEmail')->name('register.cekEmail');
 	Route::post('register/cekuname', 'RegisterController@cekUsername')->name('register.cekUsername');
 	
@@ -36,8 +40,9 @@ Route::group(['middleware'=>['auth']],function(){
 	Route::group(['middleware'=>['admin']],function(){
 		Route::namespace('Admin')->group(function(){
 			Route::prefix('admin')->group(function(){
-				Route::get('/', 'AdminController@dashboard')->name('admin.dashboard.index');
-		
+				Route::get('/', 'DashboardController@dashboard')->name('admin.dashboard.index');
+				Route::get('profile', 'AdminController@index')->name('admin.profile.index');
+				Route::put('profile', 'AdminController@update')->name('admin.profile.update');
 					Route::prefix('data')->group(function(){
 						Route::prefix('mahasiswa')->group(function(){
 							Route::get('/','MahasiswaController@index')->name('admin.mahasiswa.index');
@@ -54,9 +59,9 @@ Route::group(['middleware'=>['auth']],function(){
 
 						Route::resource('tak','TAKController',['as'=>'admin'])->except('show');
 						Route::get('tak/data','TAKController@data')->name('admin.tak.data');
-						Route::get('tak/cekKegiatan/{id}','TAKController@cekKegiatan')->name('admin.tak.cekKegiatan');
-						Route::get('tak/cekTingkat/{id}','TAKController@cekTingkat')->name('admin.tak.cekTingkat');
-						Route::get('tak/cekPilar/{id}','TAKController@cekPilar')->name('admin.tak.cekPilar');
+						Route::get('tak/cekKegiatan/{id?}','TAKController@cekKegiatan')->name('admin.tak.cekKegiatan');
+						Route::get('tak/cekTingkat/{id?}','TAKController@cekTingkat')->name('admin.tak.cekTingkat');
+						Route::get('tak/cekPilar/{id?}','TAKController@cekPilar')->name('admin.tak.cekPilar');
 						Route::get('tak/{tak}/cekPilar/{id}','TAKController@cekPilarEdit');
 					});
 					Route::prefix('config')->group(function(){

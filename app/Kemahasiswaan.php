@@ -24,7 +24,7 @@ class Kemahasiswaan extends Model
     public function user(){
     	return $this->belongsTo(User::class);
     }
-    public function deleteimage()
+    public function deleteImage()
     {
         if($this->image!=$this::USER_PHOTO_DEFAULT)
         {

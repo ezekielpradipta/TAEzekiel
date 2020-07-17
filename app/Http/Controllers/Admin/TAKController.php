@@ -54,14 +54,6 @@ class TAKController extends Controller
         $pilartaks = DB::table("pilartaks")->where("kategoritak_id",$id)->pluck("nama","id");
         return json_encode($pilartaks);
     }
-    public function cekPilarEdit($id, $tak){
-        $tak =  TAK::find('id');
-        $pilartaks = DB::table("pilartaks")->where("kategoritak_id",$id)->pluck("nama","id");
-        return response()->json([
-    'tak' => $tak,
-    'id' => $id,
-]);
-    }
     public function cekKegiatan($id){
         $kegiatantaks = DB::table("kegiatantaks")->where("pilartak_id",$id)->pluck("nama","id");
         return json_encode($kegiatantaks);
@@ -187,7 +179,13 @@ public function getTingkat($param){
      */
     public function update(Request $request, TAK $tAK)
     {
-        //
+        $this->validate($request,[
+            'kategoritak_id'=>['required'],
+            'pilartak_id'=>['required'],
+            'kegiatantak_id'=>['required'],
+            'tingkattak_id'=>['required'],
+            'score'=>['required','integer'],
+        ]);
     }
 
     /**

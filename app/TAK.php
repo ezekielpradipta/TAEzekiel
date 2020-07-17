@@ -16,4 +16,7 @@ class TAK extends Model
     {
         return $this->belongsTo(KegiatanTAK::class);
     }
+    public function takdosen(){
+        return $this->hasMany(Takdosen::class);
+    }
 }

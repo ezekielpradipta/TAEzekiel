@@ -89,9 +89,9 @@ class KegiatanTAKController extends Controller
         $data= $request->all();
         $kegiatanTAK =KegiatanTAK::create($data);
             if ($kegiatanTAK) {
-                return redirect()->route('admin.kegiatanTAK.index')->with('success', 'Kegiatan TAK  berhasil ditambahkan');
+                return redirect()->back()->with('success', 'Kegiatan TAK  berhasil ditambahkan');
                 } else {
-                return redirect()->route('admin.kegiatanTAK.index')->with('fail', 'Kegiatan TAK  gagal ditambahkan');
+                return redirect()->back()->with('fail', 'Kegiatan TAK  gagal ditambahkan');
                 }
     }
 
